@@ -5,7 +5,6 @@ import plotly.express as px
 
 st.set_page_config(page_title="Sales Insights Chat", layout="wide")
 
-
 if "chat" not in st.session_state:
     st.session_state.chat = []
 
@@ -13,19 +12,17 @@ if "pending_user_message" not in st.session_state:
     st.session_state.pending_user_message = None
 
 
-
 st.markdown("""
 <h1 style="text-align:center;">💬 Data Insights Chat</h1>
 <p style="text-align:center; font-size:18px;">
-AI-агент, который отвечает на вопросы и достаёт данные из базы
+An AI agent that answers questions and retrieves data from the database
 </p>
 """, unsafe_allow_html=True)
 
 st.divider()
 
 
-
-user_msg = st.chat_input("Введите ваш вопрос о продажах...")
+user_msg = st.chat_input("Enter your sales-related question...")
 
 if user_msg:
     st.session_state.pending_user_message = user_msg
@@ -34,8 +31,10 @@ if user_msg:
 if st.session_state.pending_user_message:
 
     msg = st.session_state.pending_user_message
-    st.session_state.pending_user_message = None
+    st.session_state.pending_user_message = None 
+
     st.session_state.chat.append({"role": "user", "content": msg})
+
     try:
         response = requests.post(
             "http://127.0.0.1:8000/chat",
@@ -49,16 +48,13 @@ if st.session_state.pending_user_message:
     st.session_state.chat.append({"role": "assistant", "content": result})
 
 
-
 def safe_metric(label, value):
-    """metric only for numbers and strings, else json"""
+    """Show metric only for numbers and strings, else show json"""
     if isinstance(value, (int, float, str)):
         st.metric(label, value)
     else:
         st.write(f"**{label}:**")
         st.json(value)
-
-
 
 for msg_index, msg in enumerate(st.session_state.chat):
 
@@ -141,7 +137,7 @@ for msg_index, msg in enumerate(st.session_state.chat):
                             key=f"chart-dict-{msg_index}"
                         )
 
-                    st.write("### ℹ Информация:")
+                    st.write("### ℹ Info:")
                     for k, v in data.items():
                         if k != "rows":
                             safe_metric(k, v)
