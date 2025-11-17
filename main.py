@@ -9,7 +9,7 @@ import seed
 
 app = FastAPI()
 
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 
 conn = psycopg2.connect(
     host="localhost",
@@ -220,3 +220,4 @@ def chat(data: ChatRequest):
 if __name__ == "__main__":
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
