@@ -66,6 +66,10 @@ git clone https://github.com/kametshi/sales_chat.git
 
 ### 2. Install dependencies
 ```pip install -r requirements.txt```
+### If you're on Windows, you may need:
+```pip install psycopg2```
+### If you're on Linux, install:
+```pip install psycopg2-binary```
 
 ### 3. Create PostgreSQL database
 
@@ -216,3 +220,4 @@ delete customers
 drop table orders
 insert into products
 ```
+
